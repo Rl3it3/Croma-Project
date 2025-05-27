@@ -178,4 +178,6 @@ document.addEventListener("DOMContentLoaded", function () {
     currentPage = 1;
     renderPage(currentPage);
   }
+
+  renderPage(currentPage)
 });
