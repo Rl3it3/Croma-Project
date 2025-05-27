@@ -39,6 +39,32 @@
         </header>
 
         <section> 
+            <ul class="button-menu">
+                <li>
+                    <a>ordenar por:</a>
+                    <div>
+                        <ul>
+                            <li><a onclick="filterByPriceCres()">Preço Crescente</a></li>
+                            <li><a onclick="filterByPriceDecres()">Preço Decrescente</a></li>
+                        </ul>
+                    </div>
+                </li>	
+                <li>
+                    <a>Categoria:</a>
+                    <div>
+                        <ul>
+                            <li><a onclick="filterNews()">Novidades</a></li>
+                            <li><a onclick="filterSup()">Suplementos</a></li>
+                            <li><a onclick="filterSnack()">Snacks</a></li>
+                            <li><a onclick="filterRef()">Refeições</a></li>
+                            <li><a onclick="filterEquip()">Equipamentos</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li><a onclick="clearFilter()">Limpar Filtro</a></li>
+                </ul>
+
             <div id="product-container" class="product-row">
                 <div class="product-card">
                     <img class="product-background" src="img/Snacks/Croma_Snack_butter_1.png" alt="Produto">
@@ -266,6 +292,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Barra Proteica</h1> 
                         <h2 class="product-capacity">Sabor Coco e Lima</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">1,50€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -274,7 +301,7 @@
                 <div class="product-card">
                     <img class="product-background" src="img/Snacks/Croma_Snack_waffle_1.png" alt="Produto">
                     <div class="product-content">
-                        <h1 class="product-title">Waffles Proteicos (6un)</h1> 
+                        <h1 class="product-title">Waffles Proteicos</h1> 
                         <h2 class="product-capacity">Sabor Original</h2>
                         <div class="product-price">7,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
@@ -346,6 +373,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Pão de Sementes</h1> 
                         <h2 class="product-capacity">500ml</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">2,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -356,6 +384,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Pão Integral</h1> 
                         <h2 class="product-capacity">500ml</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">2,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -416,6 +445,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Proteina Vegetal 1000g</h1> 
                         <h2 class="product-capacity">Sabor Chocolate</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">32,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -476,6 +506,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Liraglutida</h1> 
                         <h2 class="product-capacity">50ml</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">17,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -486,6 +517,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Orlistato</h1> 
                         <h2 class="product-capacity">50ml</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">19,25€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -496,6 +528,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Anfepramona</h1> 
                         <h2 class="product-capacity">50ml</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">16,75€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -566,6 +599,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Garrafa HydroY</h1> 
                         <h2 class="product-capacity">750ml</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">7,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -626,6 +660,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Kettlebell</h1> 
                         <h2 class="product-capacity">15kg</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">30,00</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -729,6 +764,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Pizza Congelada</h1> 
                         <h2 class="product-capacity">4 Queijos</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">3,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -739,6 +775,7 @@
                     <div class="product-content">
                         <h1 class="product-title">Pizza Congelada</h1> 
                         <h2 class="product-capacity">Margarita</h2>
+                        <div class="product-new"><i class="bi bi-stars"></i></div>
                         <div class="product-price">3,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>

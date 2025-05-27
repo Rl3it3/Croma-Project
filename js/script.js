@@ -1,4 +1,4 @@
-// 
+//Animação botão do carrinho
 document.addEventListener('DOMContentLoaded', () => {
     const addBasketButtons = document.querySelectorAll('.product-add-basket button');
 
@@ -7,45 +7,47 @@ document.addEventListener('DOMContentLoaded', () => {
             const originalIcon = button.querySelector('i');
             const originalIconClass = originalIcon.className;
 
-            // Change icon to 'cart-check-fill'
             originalIcon.className = 'bi bi-cart-check-fill';
-            
-            // Optional: Add a class for CSS animation (e.g., a subtle shake or bounce)
             button.classList.add('added-to-cart-animation');
 
             setTimeout(() => {
-                // Revert icon to original
                 originalIcon.className = originalIconClass;
-                // Remove animation class
                 button.classList.remove('added-to-cart-animation');
-            }, 1000); // Icon changes for 1 second
+            }, 1000);
         });
     });
 });
 
-// Script para paginação dos produtos
+
+
+// Paginas
 document.addEventListener("DOMContentLoaded", function () {
   const container = document.getElementById("product-container");
-  const products = Array.from(container.querySelectorAll(".product-card"));
+
+  const originalProducts = Array.from(container.querySelectorAll(".product-card"));
+  let products = [...originalProducts]; 
+
   const pagination = document.getElementById("pagination");
   const itemsPerPage = 12;
   let currentPage = 1;
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  let totalPages = Math.ceil(products.length / itemsPerPage);
 
   function renderPage(page) {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
-    products.forEach((product, index) => {
-      product.style.display = index >= start && index < end ? "flex" : "none";
-    });
+    container.innerHTML = "";
+
+    for (let i = start; i < end && i < products.length; i++) {
+        container.appendChild(products[i]);
+    }
 
     renderPagination(page);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Volta para o topo da página
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function renderPagination(current) {
-    pagination.innerHTML = ""; // Limpa a paginação
+    pagination.innerHTML = "";
 
     const createButton = (text, page, isActive = false, isDisabled = false) => {
       const btn = document.createElement("button");
@@ -61,10 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
       return btn;
     };
 
-    // Botão "Anterior"
     pagination.appendChild(createButton("<", currentPage - 1, false, currentPage === 1));
 
-    // Lógica dos botões de página
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) {
         pagination.appendChild(createButton(i, i, i === current));
@@ -84,10 +84,101 @@ document.addEventListener("DOMContentLoaded", function () {
       pagination.appendChild(createButton(totalPages, totalPages, current === totalPages));
     }
 
-    // Botão "Próximo"
     pagination.appendChild(createButton(">", currentPage + 1, false, currentPage === totalPages));
   }
 
-  // Renderiza a primeira página ao carregar
   renderPage(currentPage);
+
+
+
+  /*###################*/
+  /*### Categorias ####*/
+  /*###################*/
+
+  // Novidades
+  window.filterNews = function() {
+    products = originalProducts.filter(product => product.querySelector('.product-new'));
+    totalPages = Math.ceil(products.length / itemsPerPage);
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+  // Suplementos
+  window.filterSup = function() {
+    products = originalProducts.filter(product => {
+      const imgSrc = product.querySelector('.product-background').src;
+      return imgSrc.includes('img/Supplement/');
+    });
+    totalPages = Math.ceil(products.length / itemsPerPage);
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+  // Snacks
+  window.filterSnack = function() {
+    products = originalProducts.filter(product => {
+      const imgSrc = product.querySelector('.product-background').src;
+      return imgSrc.includes('img/Snacks/');
+    });
+    totalPages = Math.ceil(products.length / itemsPerPage);
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+  // Refeições
+  window.filterRef = function() {
+    products = originalProducts.filter(product => {
+      const imgSrc = product.querySelector('.product-background').src;
+      return imgSrc.includes('img/Meals/');
+    });
+    totalPages = Math.ceil(products.length / itemsPerPage);
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+  // Equipamentos
+  window.filterEquip = function() {
+    products = originalProducts.filter(product => {
+      const imgSrc = product.querySelector('.product-background').src;
+      return imgSrc.includes('img/Gym/');
+    });
+    totalPages = Math.ceil(products.length / itemsPerPage);
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+  // Limpar Filtro
+  window.clearFilter = function() {
+    products = [...originalProducts];
+    totalPages = Math.ceil(products.length / itemsPerPage);
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+
+  /*###############*/
+  /*### Preços ####*/
+  /*###############*/
+
+  // Crescente
+  window.filterByPriceCres = function() {
+    products.sort((a, b) => {
+        const priceA = parseFloat(a.querySelector('.product-price').textContent.replace('€', '').replace(',', '.'));
+        const priceB = parseFloat(b.querySelector('.product-price').textContent.replace('€', '').replace(',', '.'));
+        return priceA - priceB;
+    });
+    currentPage = 1;
+    renderPage(currentPage);
+  }
+
+  // Decrescente
+  window.filterByPriceDecres = function() {
+    products.sort((a, b) => {
+        const priceA = parseFloat(a.querySelector('.product-price').textContent.replace('€', '').replace(',', '.'));
+        const priceB = parseFloat(b.querySelector('.product-price').textContent.replace('€', '').replace(',', '.'));
+        return priceB - priceA;
+    });
+    currentPage = 1;
+    renderPage(currentPage);
+  }
 });
