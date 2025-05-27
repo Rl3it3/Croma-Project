@@ -87,8 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
     pagination.appendChild(createButton(">", currentPage + 1, false, currentPage === totalPages));
   }
 
-  renderPage(currentPage);
-
 
 
   /*###################*/
@@ -154,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
     currentPage = 1;
     renderPage(currentPage);
   }
-
 
   /*###############*/
   /*### Preços ####*/
