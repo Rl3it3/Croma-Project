@@ -1,95 +1,85 @@
 // Carrinho
-document.addEventListener("DOMContentLoaded", function () {
-    const cartIcon = document.querySelector('.cart-icon');
-    const cartMessage = document.getElementById('cart-message');
-    const cartItemsContainer = document.getElementById('cart-items');
-    const emptyMsg = document.getElementById('empty-cart-msg');
-    const cart = {};
+document.addEventListener("DOMContentLoaded", () => {
+  let cart = loadCart(); // carrega do localStorage ou objeto vazio
 
-    cartIcon.addEventListener('click', function (e) {
-        e.preventDefault();
-        cartMessage.classList.toggle('show');
+  const cartIcon = document.querySelector('.cart-icon');
+  const cartBox = document.getElementById('cart-message');
+  const cartItems = document.getElementById('cart-items');
+  const confirmBtn = document.getElementById('confirm-cart-btn');
+  const emptyMsg = document.getElementById('empty-cart-msg');
+
+  cartIcon.addEventListener('click', e => {
+    e.preventDefault();
+    cartBox.classList.toggle('show');
+  });
+
+  document.addEventListener('click', e => {
+    if (!cartBox.contains(e.target) && !cartIcon.contains(e.target)) {
+      cartBox.classList.remove('show');
+    }
+  });
+
+  document.querySelectorAll('.product-add-basket button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.product-card');
+      const name = card.querySelector('.product-title').textContent;
+      const img = card.querySelector('img').src;
+      const key = `${name}__${img}`;
+
+      cart[key] = cart[key] ? { ...cart[key], qty: cart[key].qty + 1 } : { name, img, qty: 1 };
+      saveCart();
+      updateCart();
+    });
+  });
+
+  function updateCart() {
+    cartItems.innerHTML = '';
+    const entries = Object.entries(cart);
+
+    entries.forEach(([key, item]) => {
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <img src="${item.img}" alt="">
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-bottom">
+            <span class="cart-item-qty">Quantidade: ${item.qty}</span>
+            <button class="remove-item"><i class="bi bi-trash3"></i></button>
+          </div>
+        </div>
+      `;
+      div.querySelector('.remove-item').onclick = () => {
+        delete cart[key];
+        saveCart();
+        updateCart();
+      };
+      cartItems.appendChild(div);
     });
 
-    document.addEventListener('click', function (e) {
-        if (!cartMessage.contains(e.target) && !cartIcon.contains(e.target)) {
-            cartMessage.classList.remove('show');
-        }
-    });
-
-    const addButtons = document.querySelectorAll('.product-add-basket button');
-
-    addButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            const card = this.closest('.product-card');
-            const title = card.querySelector('.product-title').textContent;
-            const imgSrc = card.querySelector('img').src;
-
-            // Usa chave única combinando nome + imagem
-            const productKey = `${title}__${imgSrc}`;
-
-            if (cart[productKey]) {
-                cart[productKey].qty += 1;
-            } else {
-                cart[productKey] = {
-                    name: title,
-                    img: imgSrc,
-                    qty: 1
-                };
-            }
-
-            updateCartUI();
-        });
-    });
-
-    function updateCartUI() {
-      const confirmBtn = document.getElementById('confirm-cart-btn');
-      cartItemsContainer.innerHTML = '';
-      const entries = Object.entries(cart);
-
-      if (entries.length === 0) {
-          emptyMsg.style.display = 'block';
-          confirmBtn.classList.add('hidden');
-          return;
-      }
-
-      emptyMsg.style.display = 'none';
-
-      entries.forEach(([key, data]) => {
-          const itemDiv = document.createElement('div');
-          itemDiv.classList.add('cart-item');
-
-          itemDiv.innerHTML = `
-              <img src="${data.img}" alt="${data.name}">
-              <div class="cart-item-details">
-                  <div class="cart-item-top">
-                      <span class="cart-item-name">${data.name}</span>
-                  </div>
-                  <div class="cart-item-bottom">
-                      <div class="cart-item-qty">Quantidade: ${data.qty}</div>
-                      <button class="remove-item" title="Remover"><i class="bi bi-trash3"></i></button>
-                  </div>
-              </div>
-          `;
-
-          itemDiv.querySelector('.remove-item').addEventListener('click', () => {
-              delete cart[key];
-              updateCartUI(); // <- isso vai atualizar tudo, inclusive o botão
-          });
-
-          cartItemsContainer.appendChild(itemDiv);
-      });
-
-      // Verifica se ainda há itens no carrinho para mostrar ou esconder o botão
-      if (entries.length > 0) {
-          confirmBtn.classList.remove('hidden');
-      } else {
-          confirmBtn.classList.add('hidden');
-      }
+    const hasItems = entries.length > 0;
+    confirmBtn.classList.toggle('hidden', !hasItems);
+    emptyMsg.style.display = hasItems ? 'none' : 'block';
   }
 
+  function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
 
+  function loadCart() {
+    try {
+      return JSON.parse(localStorage.getItem('cart')) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  updateCart(); // inicializa UI com dados salvos
 });
+
+
+
+
 
 
 

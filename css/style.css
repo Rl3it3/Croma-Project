@@ -202,12 +202,12 @@ body {
     display: none;
 }
 
-.empty-cart-msg {
-    display: block;
-    color: #555;
+#empty-cart-msg {
     font-size: 14px;
     text-align: center;
+    color: #555;
 }
+
 
 
 
