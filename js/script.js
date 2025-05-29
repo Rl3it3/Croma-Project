@@ -1,46 +1,53 @@
 // Carrinho
 document.addEventListener("DOMContentLoaded", () => {
-  let cart = loadCart(); // carrega do localStorage ou objeto vazio
+  let cart = JSON.parse(localStorage.getItem('cart')) || {};
 
-  const cartIcon = document.querySelector('.cart-icon');
   const cartBox = document.getElementById('cart-message');
   const cartItems = document.getElementById('cart-items');
+  const cartIcon = document.querySelector('.cart-icon');
   const confirmBtn = document.getElementById('confirm-cart-btn');
   const emptyMsg = document.getElementById('empty-cart-msg');
+  const totalEl = document.getElementById('cart-total');
 
-  cartIcon.addEventListener('click', e => {
+  // Mostrar/ocultar carrinho
+  cartIcon.onclick = e => {
     e.preventDefault();
     cartBox.classList.toggle('show');
-  });
-
-  document.addEventListener('click', e => {
+  };
+  document.onclick = e => {
     if (!cartBox.contains(e.target) && !cartIcon.contains(e.target)) {
       cartBox.classList.remove('show');
     }
-  });
+  };
 
+  // Adicionar ao carrinho
   document.querySelectorAll('.product-add-basket button').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.onclick = () => {
       const card = btn.closest('.product-card');
       const name = card.querySelector('.product-title').textContent;
       const img = card.querySelector('img').src;
+      const price = parseFloat(card.querySelector('.product-price').textContent.replace('€', '').replace(',', '.'));
       const key = `${name}__${img}`;
 
-      cart[key] = cart[key] ? { ...cart[key], qty: cart[key].qty + 1 } : { name, img, qty: 1 };
-      saveCart();
-      updateCart();
-    });
+      cart[key] = cart[key] ? { ...cart[key], qty: cart[key].qty + 1 } : { name, img, price, qty: 1 };
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    };
   });
 
-  function updateCart() {
+  // Atualiza carrinho
+  function renderCart() {
     cartItems.innerHTML = '';
+    let total = 0;
     const entries = Object.entries(cart);
 
     entries.forEach(([key, item]) => {
+      total += item.price * item.qty;
+
       const div = document.createElement('div');
       div.className = 'cart-item';
       div.innerHTML = `
-        <img src="${item.img}" alt="">
+        <img src="${item.img}">
         <div class="cart-item-details">
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-bottom">
@@ -51,8 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       div.querySelector('.remove-item').onclick = () => {
         delete cart[key];
-        saveCart();
-        updateCart();
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
       };
       cartItems.appendChild(div);
     });
@@ -60,22 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const hasItems = entries.length > 0;
     confirmBtn.classList.toggle('hidden', !hasItems);
     emptyMsg.style.display = hasItems ? 'none' : 'block';
+    totalEl.textContent = `Total: ${total.toFixed(2).replace('.', ',')}€`;
+    totalEl.style.display = hasItems ? 'block' : 'none';
   }
 
-  function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  function loadCart() {
-    try {
-      return JSON.parse(localStorage.getItem('cart')) || {};
-    } catch {
-      return {};
-    }
-  }
-
-  updateCart(); // inicializa UI com dados salvos
+  renderCart();
 });
+
+
 
 
 
