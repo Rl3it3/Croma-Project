@@ -1,3 +1,99 @@
+// Carrinho
+document.addEventListener("DOMContentLoaded", function () {
+    const cartIcon = document.querySelector('.cart-icon');
+    const cartMessage = document.getElementById('cart-message');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const emptyMsg = document.getElementById('empty-cart-msg');
+    const cart = {};
+
+    cartIcon.addEventListener('click', function (e) {
+        e.preventDefault();
+        cartMessage.classList.toggle('show');
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!cartMessage.contains(e.target) && !cartIcon.contains(e.target)) {
+            cartMessage.classList.remove('show');
+        }
+    });
+
+    const addButtons = document.querySelectorAll('.product-add-basket button');
+
+    addButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const card = this.closest('.product-card');
+            const title = card.querySelector('.product-title').textContent;
+            const imgSrc = card.querySelector('img').src;
+
+            // Usa chave única combinando nome + imagem
+            const productKey = `${title}__${imgSrc}`;
+
+            if (cart[productKey]) {
+                cart[productKey].qty += 1;
+            } else {
+                cart[productKey] = {
+                    name: title,
+                    img: imgSrc,
+                    qty: 1
+                };
+            }
+
+            updateCartUI();
+        });
+    });
+
+    function updateCartUI() {
+      const confirmBtn = document.getElementById('confirm-cart-btn');
+      cartItemsContainer.innerHTML = '';
+      const entries = Object.entries(cart);
+
+      if (entries.length === 0) {
+          emptyMsg.style.display = 'block';
+          confirmBtn.classList.add('hidden');
+          return;
+      }
+
+      emptyMsg.style.display = 'none';
+
+      entries.forEach(([key, data]) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.classList.add('cart-item');
+
+          itemDiv.innerHTML = `
+              <img src="${data.img}" alt="${data.name}">
+              <div class="cart-item-details">
+                  <div class="cart-item-top">
+                      <span class="cart-item-name">${data.name}</span>
+                  </div>
+                  <div class="cart-item-bottom">
+                      <div class="cart-item-qty">Quantidade: ${data.qty}</div>
+                      <button class="remove-item" title="Remover"><i class="bi bi-trash3"></i></button>
+                  </div>
+              </div>
+          `;
+
+          itemDiv.querySelector('.remove-item').addEventListener('click', () => {
+              delete cart[key];
+              updateCartUI(); // <- isso vai atualizar tudo, inclusive o botão
+          });
+
+          cartItemsContainer.appendChild(itemDiv);
+      });
+
+      // Verifica se ainda há itens no carrinho para mostrar ou esconder o botão
+      if (entries.length > 0) {
+          confirmBtn.classList.remove('hidden');
+      } else {
+          confirmBtn.classList.add('hidden');
+      }
+  }
+
+
+});
+
+
+
+
 //Animação botão do carrinho
 document.addEventListener('DOMContentLoaded', () => {
     const addBasketButtons = document.querySelectorAll('.product-add-basket button');
