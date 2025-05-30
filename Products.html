@@ -34,18 +34,26 @@
                         <i class="bi bi-cart3"></i>
                     </a>
                 </div>
+
+
                 <div id="cart-message" class="cart-message hidden">
-                    <h3>Carrinho</h3>
-                    <div id="cart-items" class="cart-items">
-                        <p id="empty-cart-msg">Não há itens no carrinho.</p>
-                    </div>
-                    <p id="cart-total" class="cart-total">Total: 0,00€</p>
-                    <button id="confirm-cart-btn" class="confirm-cart-btn hidden">Confirmar Carrinho</button>
+                <h3>Carrinho</h3>
+
+                <div id="cart-items" class="cart-items">
+                    <p id="empty-cart-msg">Não há itens no carrinho.</p>
                 </div>
+                
+
+                <p id="cart-total" class="cart-total" style="display: none;">Total: 0,00€</p>
+                <button id="confirm-cart-btn" class="confirm-cart-btn hidden">Confirmar Carrinho</button>
+                </div>
+
             </div>
         </header>
 
         <section> 
+            <div id="alert-container" class="alert-container"></div>
+
             <ul class="button-menu">
                 <li>
                     <a>ordenar por:</a>
@@ -118,7 +126,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_cereals_1.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Cereais Frutos Secos</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1000g</h2>
                         <div class="product-price">3,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -128,7 +136,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_cereals_2.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Cereais Frutos do Bosque</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1000g</h2>
                         <div class="product-price">3,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -138,7 +146,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_cereals_3.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Cereais Frutos Vermelhos</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1000g</h2>
                         <div class="product-price">3,99€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -148,7 +156,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_chips_1.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Batatas Originais</h1> 
-                        <h2 class="product-capacity">Fritas em Azeite</h2>
+                        <h2 class="product-capacity">250g</h2>
                         <div class="product-price">4,77€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -158,7 +166,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_chips_2.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Batatas Ketchup</h1> 
-                        <h2 class="product-capacity">Fritas em Azeite</h2>
+                        <h2 class="product-capacity">250g</h2>
                         <div class="product-price">5,77€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -168,7 +176,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_chips_3.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Batatas Camponesas</h1> 
-                        <h2 class="product-capacity">Fritas em Azeite</h2>
+                        <h2 class="product-capacity">250g</h2>
                         <div class="product-price">5,77€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -198,7 +206,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_donuts_1.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Donuts Simples</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1 uni</h2>
                         <div class="product-price">4,39€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -208,7 +216,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_donuts_2.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Donuts de Morango</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1 uni</h2>
                         <div class="product-price">4,39€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -218,7 +226,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_donuts_3.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Donuts de chocolate</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1 uni</h2>
                         <div class="product-price">4,39€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>
@@ -228,7 +236,7 @@
                     <img class="product-background" src="img/Snacks/Croma_Snack_donuts_4.png" alt="Produto">
                     <div class="product-content">
                         <h1 class="product-title">Donuts de Café e Baunilha</h1> 
-                        <h2 class="product-capacity">Zero Açucar</h2>
+                        <h2 class="product-capacity">1 uni</h2>
                         <div class="product-price">4,39€</div>
                         <div class="product-add-basket"> <button type="button"><i class="bi bi-cart-plus-fill"></i></button></div>
                     </div>

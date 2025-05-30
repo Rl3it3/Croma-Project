@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const emptyMsg = document.getElementById('empty-cart-msg');
   const totalEl = document.getElementById('cart-total');
 
-  // Mostrar/ocultar carrinho
+  // Abrir/fechar carrinho
   cartIcon.onclick = e => {
     e.preventDefault();
     cartBox.classList.toggle('show');
@@ -26,20 +26,25 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = btn.closest('.product-card');
       const name = card.querySelector('.product-title').textContent;
       const img = card.querySelector('img').src;
-      const price = parseFloat(card.querySelector('.product-price').textContent.replace('€', '').replace(',', '.'));
+      const priceText = card.querySelector('.product-price').textContent;
+      const price = parseFloat(priceText.replace('€', '').replace(',', '.'));
       const key = `${name}__${img}`;
 
-      cart[key] = cart[key] ? { ...cart[key], qty: cart[key].qty + 1 } : { name, img, price, qty: 1 };
+      cart[key] = cart[key]
+        ? { ...cart[key], qty: cart[key].qty + 1 }
+        : { name, img, price, qty: 1 };
+
       localStorage.setItem('cart', JSON.stringify(cart));
+      showSuccessAlert("Produto adicionado ao carrinho.");
       renderCart();
     };
   });
 
-  // Atualiza carrinho
+  // Renderizar carrinho
   function renderCart() {
     cartItems.innerHTML = '';
-    let total = 0;
     const entries = Object.entries(cart);
+    let total = 0;
 
     entries.forEach(([key, item]) => {
       total += item.price * item.qty;
@@ -56,11 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
+
       div.querySelector('.remove-item').onclick = () => {
         delete cart[key];
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCart();
+        showRemoveAlert("Produto removido do carrinho.");
       };
+
       cartItems.appendChild(div);
     });
 
@@ -69,10 +77,37 @@ document.addEventListener("DOMContentLoaded", () => {
     emptyMsg.style.display = hasItems ? 'none' : 'block';
     totalEl.textContent = `Total: ${total.toFixed(2).replace('.', ',')}€`;
     totalEl.style.display = hasItems ? 'block' : 'none';
+
   }
 
-  renderCart();
+  function showSuccessAlert(message) {
+    const container = document.getElementById('alert-container');
+    const alert = document.createElement('div');
+    alert.className = 'alert success';
+    alert.innerHTML = `<p class="text">${message}</p>`;
+    container.appendChild(alert);
+
+    setTimeout(() => {
+        alert.remove();
+    }, 2000);
+  }
+
+  function showRemoveAlert(message) {
+    const container = document.getElementById('alert-container');
+    const alert = document.createElement('div');
+    alert.className = 'alert remove';
+    alert.innerHTML = `<p class="text">${message}</p>`;
+    container.appendChild(alert);
+
+    setTimeout(() => {
+        alert.remove();
+    }, 2000);
+  }
+
+
+  renderCart(); // inicializa ao carregar a página
 });
+
 
 
 
