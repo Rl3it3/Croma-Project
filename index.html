@@ -27,9 +27,13 @@
                 </div>
         
                 <div class="header-icons">
-                    <a href="Login.html" class="user-icon" title="account">
+                    <a href="Login.html" class="user-icon" title="account" id="user-options-toggle">
                         <i class="bi bi-person"></i>
                     </a>
+                    <div id="user-options-message" class="user-options-message hidden">
+                        <a href="Login.html" class="user-option-link">Iniciar Sessão</a>
+                        <a href="Signup.html" class="user-option-link">Criar Conta</a>
+                    </div>
                     <a href="" class="cart-icon" title="cart">
                         <i class="bi bi-cart3"></i>
                     </a>
@@ -39,6 +43,7 @@
                     <div id="cart-items" class="cart-items">
                         <p id="empty-cart-msg">Não há itens no carrinho.</p>
                     </div>
+                    <p id="cart-total" class="cart-total" style="display: none;">Total: 0,00€</p>
                     <button id="confirm-cart-btn" class="confirm-cart-btn hidden">Confirmar Carrinho</button>
                 </div>
               
@@ -78,8 +83,9 @@
 -->
 
         <script src="js/script.js"></script>
+        <script type="module" src="js/log.js"></script>
           
-          
+
 
 </body>
 </html>

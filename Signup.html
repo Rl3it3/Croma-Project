@@ -27,13 +27,18 @@
                 </div>
         
                 <div class="header-icons">
-                    <a href="Login.html" class="user-icon" title="account">
+                    <a href="Login.html" class="user-icon" title="account" id="user-options-toggle">
                         <i class="bi bi-person"></i>
                     </a>
+                    <div id="user-options-message" class="user-options-message hidden">
+                        <a href="Login.html" class="user-option-link">Iniciar Sessão</a>
+                        <a href="Signup.html" class="user-option-link">Criar Conta</a>
+                    </div>
                     <a href="" class="cart-icon" title="cart">
                         <i class="bi bi-cart3"></i>
                     </a>
                 </div>
+
                 <div id="cart-message" class="cart-message hidden">
                     <h3>Carrinho</h3>
                     <div id="cart-items" class="cart-items">
@@ -46,6 +51,8 @@
         </header>
 
         <section>
+            <div id="alert-container" class="alert-container"></div>
+            
             <div class="signup-container">
                 <div class="signup-title-icons">
                     <h3 class="signup-tittle">Criar Conta</h3>                     
@@ -92,16 +99,16 @@
                         
                     <div class="signup-email">
                         <label class="signup-email-label">Email:</label>
-                        <input type="text" class="signup-email-input" required>
+                        <input id="emailsignup" type="text" class="signup-email-input" required>
                     </div>
 
                     <div class="signup-password">
                         <label class="signup-password-label">Password:</label>
-                        <input type="password" class="signup-password-input" required>
+                        <input id="passwordsignup" type="password" class="signup-password-input" required>
                     </div>
                     <div class="signup-confirm-password">
                         <label class="signup-confirm-password-label">Confirmar Password:</label>
-                        <input type="password" class="signup-confirm-password-input" required>
+                        <input id="confirmpasswordsignup" type="password" class="signup-confirm-password-input" required>
                     </div>                    
                 </div>
 
@@ -111,13 +118,10 @@
                 </div>
 
                 <div class="signup-button-submit">
-                    <button type="submit" class="signup-button">Criar Conta</button>
+                    <button type="submit" class="signup-button" id="submitsignup">Criar Conta</button>
                 </div>
             </div>
-
-
-
         </section>
-    
+    <script type="module" src="js/signup.js"></script>
 </body>
 </html>

@@ -26,14 +26,19 @@
                     </button>
                 </div>
         
-                <div class="header-icons">
-                    <a href="Login.html" class="user-icon" title="account">
+               <div class="header-icons">
+                    <a href="Login.html" class="user-icon" title="account" id="user-options-toggle">
                         <i class="bi bi-person"></i>
                     </a>
+                    <div id="user-options-message" class="user-options-message hidden">
+                        <a href="Login.html" class="user-option-link">Iniciar Sessão</a>
+                        <a href="Signup.html" class="user-option-link">Criar Conta</a>
+                    </div>
                     <a href="" class="cart-icon" title="cart">
                         <i class="bi bi-cart3"></i>
                     </a>
                 </div>
+                
                 <div id="cart-message" class="cart-message hidden">
                     <h3>Carrinho</h3>
                     <div id="cart-items" class="cart-items">
@@ -46,6 +51,8 @@
         </header>
 
         <section>
+            <div id="alert-container" class="alert-container"></div> 
+            
             <div class="login-container">
                 <div class="login-croma-logo">
                     <img src="img/Croma_logo_2.png" alt="Croma">
@@ -65,23 +72,23 @@
                 <div class="login-right-2">
                     <div class="login-inputs">
                         <label class="login-email-label">Email:</label>
-                        <input type="text" class="login-email-input" required>
+                        <input id="email" type="text" class="login-email-input" required>
 
                         <label class="login-password-label">Password:</label>
-                        <input type="password" class="login-password-input" required>
+                        <input id="password" type="password" class="login-password-input" required>
                     </div>
                 </div>
 
                 <div class="login-right-3">
                     <div class="login-button-submit">
-                        <button type="submit" class="login-button">Iniciar Sessão</button>
+                        <button id="submit" type="submit" class="login-button">Iniciar Sessão</button>
                     </div>
                     <div class="login-remember-forgot">
                         <div class="login-remember">
                             <input type="checkbox">
                             <label>Lembrar-me</label>
                         </div>
-                        <a href="#" class="login-forgot">Recuperar Password?</a>
+                        <a  id="reset" class="login-forgot">Recuperar Password?</a>
                     </div>
                 </div>
                 
@@ -91,7 +98,6 @@
                 </div>
             </div>
         </section>
-        
-    
+        <script type="module" src="js/login.js"></script>
 </body>
 </html>
